@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamSeater - Smart Seating Arrangement System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavejs/1.0.0/wave.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'gradient': 'gradient 15s ease infinite',
+                        'wave': 'wave 2s ease-in-out infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 4s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        gradient: {
+                            '0%, 100%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'left center'
+                            },
+                            '50%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'right center'
+                            },
+                        },
+                        wave: {
+                            '0%': { transform: 'rotate(0.0deg)' },
+                            '10%': { transform: 'rotate(14deg)' },
+                            '20%': { transform: 'rotate(-8deg)' },
+                            '30%': { transform: 'rotate(14deg)' },
+                            '40%': { transform: 'rotate(-4deg)' },
+                            '50%': { transform: 'rotate(10.0deg)' },
+                            '60%': { transform: 'rotate(0.0deg)' },
+                            '100%': { transform: 'rotate(0.0deg)' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500 animate-gradient">
+    <!-- Animated Navigation -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-lg fixed w-full z-50 animate__animated animate__fadeInDown">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div
+                    class="text-3xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent hover:scale-105 transition-transform">
+                    ExamSeater
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="relative text-gray-600 hover:text-indigo-600 transition-colors group">
+                        Features
+                        <span
+                            class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+                    </a>
+                    <a href="#how-it-works"
+                        class="relative text-gray-600 hover:text-indigo-600 transition-colors group">
+                        How it Works
+                        <span
+                            class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+                    </a>
+                    <a href="generator.html" class="relative inline-flex group">
+                        <div
+                            class="absolute transitiona-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt">
+                        </div>
+                        <button
+                            class="relative inline-flex items-center justify-center px-6 py-2 text-white transition-all bg-gradient-to-r from-indigo-600 to-violet-600 rounded-lg hover:scale-105 duration-200">
+                            Get Started
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="overflow-hidden">
+        <!-- Hero Section with Animated Background -->
+        <section class="min-h-screen pt-32 pb-20 px-6 relative">
+            <!-- Animated Background Elements -->
+            <div class="absolute inset-0 overflow-hidden -z-10">
+                <div class="absolute w-72 h-72 bg-purple-300/30 rounded-full blur-3xl -top-12 -left-12 animate-float">
+                </div>
+                <div class="absolute w-72 h-72 bg-indigo-300/30 rounded-full blur-3xl top-1/2 right-12 animate-float"
+                    style="animation-delay: 1s;"></div>
+                <div class="absolute w-72 h-72 bg-pink-300/30 rounded-full blur-3xl bottom-12 left-1/2 animate-float"
+                    style="animation-delay: 2s;"></div>
+            </div>
+
+            <div class="container mx-auto text-center relative">
+                <div class="animate__animated animate__fadeInUp">
+                    <h1 class="text-6xl md:text-7xl font-bold text-white mb-6">
+                        Streamline Your
+                        <span class="relative">
+                            Exam Seating
+                            <span
+                                class="absolute -bottom-2 left-0 w-full h-2 bg-indigo-400 transform -skew-x-12"></span>
+                        </span>
+                    </h1>
+                    <p class="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+                        Create efficient and organized seating arrangements in seconds with our smart distribution
+                        system
+                    </p>
+                    <a href="generator.html" class="group relative inline-flex">
+                        <div
+                            class="absolute transitiona-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200">
+                        </div>
+                        <button
+                            class="relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all bg-gradient-to-r from-violet-600 to-indigo-600 rounded-xl hover:scale-105 duration-200">
+                            Create Seating Plan
+                            <span class="ml-2 transition-transform group-hover:translate-x-1">→</span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Add wave animation at the bottom -->
+            <div class="absolute bottom-0 left-0 w-full">
+                <svg class="waves" xmlns="http://www.w3.org/licenses/MIT" viewBox="0 24 150 28"
+                    preserveAspectRatio="none">
+                    <defs>
+                        <path id="wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                    </defs>
+                    <g class="parallax">
+                        <use href="#wave" x="48" y="0" fill="rgba(255,255,255,0.7)" />
+                        <use href="#wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+                        <use href="#wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+                        <use href="#wave" x="48" y="7" fill="#fff" />
+                    </g>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Features Section with Hover Effects -->
+        <section id="features" class="py-20 bg-white/95 backdrop-blur-md relative">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16 relative">
+                    Key Features
+                    <span
+                        class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gradient-to-r from-violet-600 to-indigo-600"></span>
+                </h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Feature Cards with Hover Effects -->
+                    <div
+                        class="group p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                        <div
+                            class="text-5xl mb-6 transform transition-transform group-hover:scale-110 group-hover:animate-wave">
+                            🎯</div>
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Smart Distribution</h3>
+                        <p class="text-gray-600 group-hover:text-gray-800 transition-colors">Automatically distribute
+                            students with optimal spacing and organization</p>
+                    </div>
+                    <div
+                        class="group p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                        <div
+                            class="text-5xl mb-6 transform transition-transform group-hover:scale-110 group-hover:animate-wave">
+                            🖨️</div>
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Print Ready</h3>
+                        <p class="text-gray-600 group-hover:text-gray-800 transition-colors">Generate print-friendly
+                            seating arrangements instantly</p>
+                    </div>
+                    <div
+                        class="group p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                        <div
+                            class="text-5xl mb-6 transform transition-transform group-hover:scale-110 group-hover:animate-wave">
+                            ⚡</div>
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Quick Setup</h3>
+                        <p class="text-gray-600 group-hover:text-gray-800 transition-colors">Create arrangements in just
+                            a few clicks</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="py-20 bg-white relative">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="p-6 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                        <div class="text-4xl font-bold text-violet-600 animate-pulse-slow">1000+</div>
+                        <p class="text-gray-600 mt-2">Exams Organized</p>
+                    </div>
+                    <div class="p-6 animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                        <div class="text-4xl font-bold text-indigo-600 animate-pulse-slow">50K+</div>
+                        <p class="text-gray-600 mt-2">Students Seated</p>
+                    </div>
+                    <div class="p-6 animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
+                        <div class="text-4xl font-bold text-fuchsia-600 animate-pulse-slow">99%</div>
+                        <p class="text-gray-600 mt-2">Satisfaction Rate</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Replace the existing How It Works section with this enhanced version -->
+        <section id="how-it-works" class="py-20 bg-gray-50 relative overflow-hidden">
+            <!-- Background decoration -->
+            <div class="absolute inset-0 opacity-10">
+                <div
+                    class="absolute top-10 left-10 w-72 h-72 bg-violet-500 rounded-full mix-blend-multiply filter blur-xl animate-bounce-slow">
+                </div>
+                <div
+                    class="absolute bottom-10 right-10 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse-slow">
+                </div>
+            </div>
+
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16 relative">
+                    How It Works
+                    <span
+                        class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gradient-to-r from-violet-600 to-indigo-600"></span>
+                </h2>
+
+                <div class="grid md:grid-cols-4 gap-8 relative">
+                    <!-- Step 1 -->
+                    <div class="relative group animate__animated animate__fadeInLeft" style="animation-delay: 0.2s;">
+                        <div
+                            class="absolute -inset-1 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000">
+                        </div>
+                        <div class="relative p-6 bg-white rounded-lg hover:scale-105 transition-transform duration-300">
+                            <div class="text-3xl mb-4 animate-bounce-slow">1️⃣</div>
+                            <h3 class="text-lg font-semibold mb-2">Enter Details</h3>
+                            <p class="text-gray-600">Specify number of benches, students per bench, and stream
+                                information.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative group animate__animated animate__fadeInLeft" style="animation-delay: 0.4s;">
+                        <div
+                            class="absolute -inset-1 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000">
+                        </div>
+                        <div class="relative p-6 bg-white rounded-lg hover:scale-105 transition-transform duration-300">
+                            <div class="text-3xl mb-4 animate-bounce-slow">2️⃣</div>
+                            <h3 class="text-lg font-semibold mb-2">Smart Distribution</h3>
+                            <p class="text-gray-600">Our algorithm optimally arranges students with proper spacing.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative group animate__animated animate__fadeInLeft" style="animation-delay: 0.6s;">
+                        <div
+                            class="absolute -inset-1 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000">
+                        </div>
+                        <div class="relative p-6 bg-white rounded-lg hover:scale-105 transition-transform duration-300">
+                            <div class="text-3xl mb-4 animate-bounce-slow">3️⃣</div>
+                            <h3 class="text-lg font-semibold mb-2">Review Plan</h3>
+                            <p class="text-gray-600">Preview the generated seating arrangement with clear visualization.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="relative group animate__animated animate__fadeInLeft" style="animation-delay: 0.8s;">
+                        <div
+                            class="absolute -inset-1 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000">
+                        </div>
+                        <div class="relative p-6 bg-white rounded-lg hover:scale-105 transition-transform duration-300">
+                            <div class="text-3xl mb-4 animate-bounce-slow">4️⃣</div>
+                            <h3 class="text-lg font-semibold mb-2">Print & Share</h3>
+                            <p class="text-gray-600">Get print-ready layout and share with supervisors and students.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Features List -->
+                <div class="mt-20 grid md:grid-cols-2 gap-8">
+                    <div class="bg-white/90 backdrop-blur-md p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-violet-600">Key Benefits</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center text-gray-700">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Time-saving automated arrangement
+                            </li>
+                            <li class="flex items-center text-gray-700">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Optimal student distribution
+                            </li>
+                            <li class="flex items-center text-gray-700">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Multiple stream support
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/90 backdrop-blur-md p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-indigo-600">Why Choose Us</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center text-gray-700">
+                                <svg class="w-5 h-5 text-indigo-500 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                User-friendly interface
+                            </li>
+                            <li class="flex items-center text-gray-700">
+                                <svg class="w-5 h-5 text-indigo-500 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Instant generation
+                            </li>
+                            <li class="flex items-center text-gray-700">
+                                <svg class="w-5 h-5 text-indigo-500 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Print-ready formats
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add this new section before the CTA -->
+        <section class="py-20 bg-white/95 backdrop-blur-md">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16 relative">
+                    Frequently Asked Questions
+                    <span
+                        class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gradient-to-r from-violet-600 to-indigo-600"></span>
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="bg-gray-50 p-6 rounded-xl hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-lg font-semibold mb-2 text-violet-600">How many students can I arrange?</h3>
+                        <p class="text-gray-600">Our system can handle any number of students efficiently, with smart
+                            distribution across available benches.</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-xl hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-lg font-semibold mb-2 text-violet-600">Can I modify the arrangement?</h3>
+                        <p class="text-gray-600">Yes, you can regenerate the seating plan multiple times until you get
+                            your desired arrangement.</p>
+                    </div>
+
+                    <!-- Add more FAQs as needed -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Replace the existing Testimonials Section with this enhanced version -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16 relative">
+                    What Users Say
+                    <span
+                        class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gradient-to-r from-violet-600 to-indigo-600"></span>
+                </h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Original Testimonial -->
+                    <div
+                        class="p-6 bg-gray-50 rounded-xl shadow-lg transform transition-all duration-500 hover:scale-105 animate__animated animate__fadeInUp">
+                        <div class="text-violet-600 text-4xl mb-4">"</div>
+                        <p class="text-gray-600 mb-4">Perfect solution for managing exam seating arrangements. Saved us
+                            hours of work!</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-violet-200 rounded-full flex items-center justify-center">
+                                <span class="text-violet-600 font-bold">JD</span>
+                            </div>
+                            <div class="ml-4">
+                                <div class="font-semibold">John Doe</div>
+                                <div class="text-sm text-gray-500">Exam Coordinator</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- New Testimonials -->
+                    <div class="p-6 bg-gray-50 rounded-xl shadow-lg transform transition-all duration-500 hover:scale-105 animate__animated animate__fadeInUp"
+                        style="animation-delay: 0.2s;">
+                        <div class="text-indigo-600 text-4xl mb-4">"</div>
+                        <p class="text-gray-600 mb-4">The automatic stream distribution feature is brilliant! Makes
+                            organizing departmental exams so much easier.</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-indigo-200 rounded-full flex items-center justify-center">
+                                <span class="text-indigo-600 font-bold">SP</span>
+                            </div>
+                            <div class="ml-4">
+                                <div class="font-semibold">Sarah Parker</div>
+                                <div class="text-sm text-gray-500">Department Head</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-gray-50 rounded-xl shadow-lg transform transition-all duration-500 hover:scale-105 animate__animated animate__fadeInUp"
+                        style="animation-delay: 0.4s;">
+                        <div class="text-fuchsia-600 text-4xl mb-4">"</div>
+                        <p class="text-gray-600 mb-4">User-friendly interface and instant print options. Exactly what
+                            our institution needed!</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-fuchsia-200 rounded-full flex items-center justify-center">
+                                <span class="text-fuchsia-600 font-bold">RK</span>
+                            </div>
+                            <div class="ml-4">
+                                <div class="font-semibold">Robert King</div>
+                                <div class="text-sm text-gray-500">University Administrator</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Testimonials Row -->
+                    <div class="p-6 bg-gray-50 rounded-xl shadow-lg transform transition-all duration-500 hover:scale-105 animate__animated animate__fadeInUp"
+                        style="animation-delay: 0.6s;">
+                        <div class="text-emerald-600 text-4xl mb-4">"</div>
+                        <p class="text-gray-600 mb-4">The seating plans are clear and well-organized. Students find
+                            their seats without any confusion.</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-emerald-200 rounded-full flex items-center justify-center">
+                                <span class="text-emerald-600 font-bold">ML</span>
+                            </div>
+                            <div class="ml-4">
+                                <div class="font-semibold">Maria Lee</div>
+                                <div class="text-sm text-gray-500">Exam Supervisor</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-gray-50 rounded-xl shadow-lg transform transition-all duration-500 hover:scale-105 animate__animated animate__fadeInUp"
+                        style="animation-delay: 0.8s;">
+                        <div class="text-amber-600 text-4xl mb-4">"</div>
+                        <p class="text-gray-600 mb-4">We use it for all our examinations now. The time saved on planning
+                            is remarkable!</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-amber-200 rounded-full flex items-center justify-center">
+                                <span class="text-amber-600 font-bold">DP</span>
+                            </div>
+                            <div class="ml-4">
+                                <div class="font-semibold">David Patel</div>
+                                <div class="text-sm text-gray-500">College Director</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-gray-50 rounded-xl shadow-lg transform transition-all duration-500 hover:scale-105 animate__animated animate__fadeInUp"
+                        style="animation-delay: 1s;">
+                        <div class="text-rose-600 text-4xl mb-4">"</div>
+                        <p class="text-gray-600 mb-4">The support for multiple streams and flexible arrangements makes
+                            this tool invaluable.</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-rose-200 rounded-full flex items-center justify-center">
+                                <span class="text-rose-600 font-bold">AW</span>
+                            </div>
+                            <div class="ml-4">
+                                <div class="font-semibold">Alice Wong</div>
+                                <div class="text-sm text-gray-500">Academic Coordinator</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-20 bg-gradient-to-r from-violet-600 to-indigo-600 relative overflow-hidden">
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <h2 class="text-4xl font-bold text-white mb-8 animate__animated animate__fadeInUp">Ready to Streamline
+                    Your Exam Seating?</h2>
+                <a href="generator.html"
+                    class="inline-block bg-white text-indigo-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all">
+                    Get Started Now
+                </a>
+            </div>
+            <!-- Add floating elements -->
+            <div class="absolute top-0 left-0 w-full h-full">
+                <div class="absolute w-20 h-20 bg-white/10 rounded-full top-10 left-10 animate-spin-slow"></div>
+                <div class="absolute w-32 h-32 bg-white/10 rounded-full bottom-20 right-20 animate-bounce-slow"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Enhanced Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400 hover:text-white transition-colors">© 2025 ExamSeater. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll Indicator -->
+    <div class="fixed bottom-8 right-8 print:hidden">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+            class="bg-white/20 backdrop-blur-md p-3 rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110">
+            ↑
+        </button>
+    </div>
+
+    <!-- Add Wave.js initialization -->
+    <script>
+        var wave = new Wave('#wave', {
+            height: 70,
+            speed: 0.15,
+            points: 3,
+            vertexCount: 6,
+        });
+        wave.animate();
+    </script>
+</body>
+
+</html>

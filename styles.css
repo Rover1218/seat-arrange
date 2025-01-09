@@ -1,0 +1,418 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: #f5f5f5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #7f8c8d;
+}
+
+.input-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group.optional label::after {
+    content: " (Optional)";
+    color: #7f8c8d;
+    font-size: 0.9em;
+    font-weight: normal;
+}
+
+.input-group.optional input {
+    border-style: dashed;
+}
+
+.input-group.optional input:focus {
+    border-style: solid;
+}
+
+label {
+    font-weight: 500;
+    color: #34495e;
+}
+
+input {
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+.generate-btn,
+.print-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.generate-btn:hover,
+.print-btn:hover {
+    background: #2980b9;
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    grid-column: 1 / -1;
+}
+
+.reset-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.reset-btn:hover {
+    background: #c0392b;
+}
+
+.seating-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.seating-plan {
+    display: grid;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.seat {
+    border: 2px solid #3498db;
+    padding: 1rem;
+    text-align: center;
+    background: #f8f9fa;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.seat.cse {
+    border-color: #2ecc71;
+    background-color: #eafaf1;
+}
+
+.seat.ece {
+    border-color: #e74c3c;
+    background-color: #fdedec;
+}
+
+.seat.empty {
+    border-style: dashed;
+    border-color: #bdc3c7;
+    background-color: #f9f9f9;
+    color: #95a5a6;
+}
+
+.seat.stream1 {
+    border-color: #2ecc71;
+    background-color: #eafaf1;
+}
+
+.seat.stream2 {
+    border-color: #3498db;
+    background-color: #ebf5fb;
+}
+
+.bench-label {
+    background: #34495e;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+}
+
+.stream-indicator {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    margin-top: 0.3rem;
+}
+
+.stream-indicator.cse {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.stream-indicator.ece {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.stream-indicator.stream1 {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.stream-indicator.stream2 {
+    background-color: #3498db;
+    color: white;
+}
+
+.print-section {
+    text-align: center;
+}
+
+.print-icon {
+    margin-right: 0.5rem;
+}
+
+.stream-name {
+    margin-bottom: 0.5rem;
+}
+
+.waves {
+    position: relative;
+    width: 100%;
+    height: 15vh;
+    margin-bottom: -7px;
+    min-height: 100px;
+    max-height: 150px;
+}
+
+.parallax>use {
+    animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+}
+
+.parallax>use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+}
+
+.parallax>use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+}
+
+.parallax>use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+}
+
+.parallax>use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+}
+
+@keyframes move-forever {
+    0% {
+        transform: translate3d(-90px, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(85px, 0, 0);
+    }
+}
+
+/* Responsive wave */
+@media (max-width: 768px) {
+    .waves {
+        height: 40px;
+        min-height: 40px;
+    }
+}
+
+@media print {
+    @page {
+        margin: 1cm;
+        size: A4;
+    }
+
+    body {
+        background: white;
+        font-size: 12pt;
+        line-height: 1.3;
+    }
+
+    .input-section,
+    .print-btn,
+    nav,
+    .export-options {
+        display: none !important;
+    }
+
+    .container {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    #printTemplate {
+        display: block !important;
+    }
+
+    .seat {
+        border: 1px solid #000;
+        page-break-inside: avoid;
+        background-color: white !important;
+        color: black !important;
+    }
+
+    .bench-label {
+        background: none !important;
+        border: 1px solid #000;
+        color: black !important;
+    }
+
+    .stream-indicator {
+        border: 1px solid #000;
+        background: none !important;
+        color: black !important;
+    }
+
+    img {
+        max-width: 100%;
+        page-break-inside: avoid;
+    }
+
+    #printFooter {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        page-break-after: always;
+    }
+
+    @page {
+        margin: 20mm;
+        size: A4;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #printTemplate,
+    #printTemplate * {
+        visibility: visible;
+    }
+
+    #printTemplate {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    .no-print,
+    .step-content,
+    .input-section,
+    .button-group {
+        display: none !important;
+    }
+
+    .seat {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        border: 1px solid black !important;
+        background: white !important;
+    }
+
+    .bench {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin-bottom: 10mm;
+    }
+
+    .stream-indicator {
+        border: 1px solid black !important;
+        background: white !important;
+        color: black !important;
+    }
+}
+
+/* Add these new styles for print preview */
+.print-preview {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.print-preview .seat {
+    border: 1px solid #000;
+}
+
+/* PDF specific styles */
+.pdf-content {
+    background: white;
+    padding: 20mm;
+}
+
+.pdf-content .seat {
+    border: 1px solid black !important;
+    background: white !important;
+}
+
+.pdf-content .stream-indicator {
+    border: 1px solid black !important;
+    background: white !important;
+    color: black !important;
+}
+
+/* Add these styles for the step buttons */
+.step-btn {
+    @apply px-4 py-2 rounded-lg text-gray-700 transition-all duration-300 relative;
+}
+
+.step-btn.active {
+    @apply text-violet-600 font-medium;
+}
+
+.step-btn.active::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-0.5 bg-violet-600 transform transition-transform duration-300;
+}
