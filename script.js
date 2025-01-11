@@ -42,6 +42,10 @@ function generateSeating() {
         const stream1Count = parseInt(document.getElementById('stream1Count')?.value || '0');
         const stream2Name = document.getElementById('stream2Name')?.value.trim() || '';
         const stream2Count = parseInt(document.getElementById('stream2Count')?.value || '0');
+        const stream1StartRoll = parseInt(document.getElementById('stream1StartRoll')?.value || '0');
+        const stream2StartRoll = parseInt(document.getElementById('stream2StartRoll')?.value || '0');
+        const stream1EndRoll = parseInt(document.getElementById('stream1EndRoll')?.value || '0');
+        const stream2EndRoll = parseInt(document.getElementById('stream2EndRoll')?.value || '0');
 
         if (!benches || !studentsPerBench || !stream1Name || !stream1Count) {
             showNotification('Please fill in all required fields', 'error');
@@ -116,12 +120,42 @@ function generateSeating() {
                     // Original logic for two streams
                     if ((j === 0 || j === studentsPerBench - 1) && stream1Counter <= stream1Count) {
                         seat.classList.add('stream1');
-                        seat.innerHTML = `Roll No.<br>${stream1Counter}<div class="stream-indicator stream1">${stream1Name}</div>`;
+                        const rollNo = Math.min(stream1StartRoll + stream1Counter - 1, stream1EndRoll);
+                        seat.innerHTML = `
+                            <div class="mb-2">
+                                <div class="font-semibold">Roll No. ${rollNo}</div>
+                                <div class="text-sm text-gray-600">${stream1Name}</div>
+                            </div>
+                            <div class="signature-box mt-2 border-t border-gray-300 p-2">
+                                <div class="text-xs text-gray-500">Student Signature</div>
+                                <div class="h-10 border-b border-gray-400"></div>
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>Time In: _______</span>
+                                    <span>Time Out: _______</span>
+                                </div>
+                            </div>
+                        `;
                         stream1Counter++;
                     }
                     else if (j !== 0 && j !== studentsPerBench - 1 && stream2Counter <= stream2Count) {
                         seat.classList.add('stream2');
-                        seat.innerHTML = `Roll No.<br>${stream2Counter}<div class="stream-indicator stream2">${stream2Name}</div>`;
+                        const rollNo = stream2StartRoll ?
+                            Math.min(stream2StartRoll + stream2Counter - 1, stream2EndRoll) :
+                            stream2Counter;
+                        seat.innerHTML = `
+                            <div class="mb-2">
+                                <div class="font-semibold">Roll No. ${rollNo}</div>
+                                <div class="text-sm text-gray-600">${stream2Name}</div>
+                            </div>
+                            <div class="signature-box mt-2 border-t border-gray-300 p-2">
+                                <div class="text-xs text-gray-500">Student Signature</div>
+                                <div class="h-10 border-b border-gray-400"></div>
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>Time In: _______</span>
+                                    <span>Time Out: _______</span>
+                                </div>
+                            </div>
+                        `;
                         stream2Counter++;
                     }
                     else {
@@ -132,7 +166,17 @@ function generateSeating() {
                     // Logic for single stream
                     if (stream1Counter <= stream1Count) {
                         seat.classList.add('stream1');
-                        seat.innerHTML = `Roll No.<br>${stream1Counter}<div class="stream-indicator stream1">${stream1Name}</div>`;
+                        const rollNo = stream1StartRoll + stream1Counter - 1;
+                        seat.innerHTML = `
+                            <div class="mb-2">
+                                <div class="font-semibold">Roll No. ${rollNo}</div>
+                                <div class="text-sm text-gray-600">${stream1Name}</div>
+                            </div>
+                            <div class="signature-box mt-2 border-t border-gray-300">
+                                <div class="text-xs text-gray-500 mt-1">Signature</div>
+                                <div class="border-b border-gray-400 h-6"></div>
+                            </div>
+                        `;
                         stream1Counter++;
                     } else {
                         seat.classList.add('empty');
@@ -429,7 +473,9 @@ function validateForm() {
         'benches': { label: 'Number of Benches', min: 1 },
         'columns': { label: 'Students per Bench', min: 1 },
         'stream1Name': { label: 'Stream 1 Name', type: 'text' },
-        'stream1Count': { label: 'Stream 1 Count', min: 1 }
+        'stream1Count': { label: 'Stream 1 Count', min: 1 },
+        'stream1StartRoll': { label: 'Stream 1 Start Roll Number', min: 1 },
+        'stream1EndRoll': { label: 'Stream 1 End Roll', min: 1 }
     };
 
     for (const [id, config] of Object.entries(requiredFields)) {
@@ -460,6 +506,47 @@ function validateForm() {
     if (totalStudents > totalSeats) {
         showNotification('Total number of students exceeds available seats', 'error');
         return false;
+    }
+
+    const stream1StartRoll = parseInt(document.getElementById('stream1StartRoll').value);
+    const stream1EndRoll = parseInt(document.getElementById('stream1EndRoll').value);
+    const stream1Count = parseInt(document.getElementById('stream1Count').value);
+
+    if (stream1EndRoll < stream1StartRoll) {
+        showNotification('Stream 1: End roll number must be greater than start roll number', 'error');
+        return false;
+    }
+
+    if ((stream1EndRoll - stream1StartRoll + 1) < stream1Count) {
+        showNotification('Stream 1: Roll number range is smaller than student count', 'error');
+        return false;
+    }
+
+    // Modify Stream 2 validation
+    const stream2Name = document.getElementById('stream2Name').value.trim();
+    const stream2Count = parseInt(document.getElementById('stream2Count').value) || 0;
+    const stream2StartRoll = document.getElementById('stream2StartRoll').value.trim();
+    const stream2EndRoll = document.getElementById('stream2EndRoll').value.trim();
+
+    // Only validate Stream 2 roll numbers if Stream 2 name and count are provided
+    if (stream2Name && stream2Count > 0) {
+        if (!stream2StartRoll || !stream2EndRoll) {
+            showNotification('Please enter roll number range for Stream 2', 'error');
+            return false;
+        }
+
+        const stream2Start = parseInt(stream2StartRoll);
+        const stream2End = parseInt(stream2EndRoll);
+
+        if (stream2End < stream2Start) {
+            showNotification('Stream 2: End roll number must be greater than start roll number', 'error');
+            return false;
+        }
+
+        if ((stream2End - stream2Start + 1) < stream2Count) {
+            showNotification('Stream 2: Roll number range is smaller than student count', 'error');
+            return false;
+        }
     }
 
     return true;
@@ -876,6 +963,31 @@ function printSeatingPlan() {
             </div>
         </body>
         </html>
+    `);
+
+    printWindow.document.write(`
+        <style>
+            @media print {
+                /* ...existing print styles... */
+                .signature-box {
+                    border: 1px solid #ccc;
+                    padding: 8px;
+                    margin-top: 8px;
+                }
+                .signature-line {
+                    border-bottom: 1px solid #000;
+                    height: 30px;
+                    margin: 5px 0;
+                }
+                .time-stamps {
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 0.75rem;
+                    color: #666;
+                    margin-top: 4px;
+                }
+            }
+        </style>
     `);
 
     printWindow.document.close();

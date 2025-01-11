@@ -11,6 +11,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wavejs/1.0.0/wave.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -90,22 +92,13 @@
         </div>
     </nav>
 
-    <main class="overflow-hidden">
-        <!-- Hero Section with Animated Background -->
-        <section class="min-h-screen pt-32 pb-20 px-6 relative">
-            <!-- Animated Background Elements -->
-            <div class="absolute inset-0 overflow-hidden -z-10">
-                <div class="absolute w-72 h-72 bg-purple-300/30 rounded-full blur-3xl -top-12 -left-12 animate-float">
-                </div>
-                <div class="absolute w-72 h-72 bg-indigo-300/30 rounded-full blur-3xl top-1/2 right-12 animate-float"
-                    style="animation-delay: 1s;"></div>
-                <div class="absolute w-72 h-72 bg-pink-300/30 rounded-full blur-3xl bottom-12 left-1/2 animate-float"
-                    style="animation-delay: 2s;"></div>
-            </div>
-
-            <div class="container mx-auto text-center relative">
-                <div class="animate__animated animate__fadeInUp">
-                    <h1 class="text-6xl md:text-7xl font-bold text-white mb-6">
+    <!-- Replace the existing hero section with this new layout -->
+    <section class="min-h-screen pt-32 pb-20 px-6 relative">
+        <div class="container mx-auto relative">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                <!-- Left side: Content -->
+                <div class="w-full md:w-1/2 animate__animated animate__fadeInLeft">
+                    <h1 class="text-6xl md:text-7xl font-bold text-white mb-6 text-left">
                         Streamline Your
                         <span class="relative">
                             Exam Seating
@@ -113,40 +106,37 @@
                                 class="absolute -bottom-2 left-0 w-full h-2 bg-indigo-400 transform -skew-x-12"></span>
                         </span>
                     </h1>
-                    <p class="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+                    <p class="text-xl text-white/90 mb-12 max-w-xl text-left">
                         Create efficient and organized seating arrangements in seconds with our smart distribution
                         system
                     </p>
-                    <a href="generator.html" class="group relative inline-flex">
-                        <div
-                            class="absolute transitiona-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200">
-                        </div>
-                        <button
-                            class="relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all bg-gradient-to-r from-violet-600 to-indigo-600 rounded-xl hover:scale-105 duration-200">
-                            Create Seating Plan
-                            <span class="ml-2 transition-transform group-hover:translate-x-1">→</span>
-                        </button>
-                    </a>
+                    <div class="text-left">
+                        <a href="generator.html" class="group relative inline-flex">
+                            <div
+                                class="absolute transitiona-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200">
+                            </div>
+                            <button
+                                class="relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all bg-gradient-to-r from-violet-600 to-indigo-600 rounded-xl hover:scale-105 duration-200">
+                                Create Seating Plan
+                                <span class="ml-2 transition-transform group-hover:translate-x-1">→</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right side: 3D Animation -->
+                <div class="w-full md:w-1/2 h-[600px] animate__animated animate__fadeInRight">
+                    <div id="3d-animation" class="relative w-full h-full flex items-center justify-center"></div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Add wave animation at the bottom -->
-            <div class="absolute bottom-0 left-0 w-full">
-                <svg class="waves" xmlns="http://www.w3.org/licenses/MIT" viewBox="0 24 150 28"
-                    preserveAspectRatio="none">
-                    <defs>
-                        <path id="wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-                    </defs>
-                    <g class="parallax">
-                        <use href="#wave" x="48" y="0" fill="rgba(255,255,255,0.7)" />
-                        <use href="#wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
-                        <use href="#wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
-                        <use href="#wave" x="48" y="7" fill="#fff" />
-                    </g>
-                </svg>
-            </div>
-        </section>
+    <!-- Add this overlay div right after the 3d-animation div -->
+    <div class="fixed inset-0 bg-gradient-to-b from-transparent via-transparent to-white/50 pointer-events-none"
+        style="z-index: 2;"></div>
 
+    <main class="overflow-hidden">
         <!-- Features Section with Hover Effects -->
         <section id="features" class="py-20 bg-white/95 backdrop-blur-md relative">
             <div class="container mx-auto px-6">
@@ -524,6 +514,130 @@
             vertexCount: 6,
         });
         wave.animate();
+    </script>
+
+    <!-- Replace the existing Three.js script with these fixes -->
+    <script>
+        // Scene setup
+        const scene = new THREE.Scene();
+
+        // Camera setup
+        const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+        camera.position.set(0, 4, 10);
+        camera.lookAt(0, 0, 0);
+
+        // Renderer setup
+        const renderer = new THREE.WebGLRenderer({
+            antialias: true,
+            alpha: true
+        });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(500, 500);
+        renderer.shadowMap.enabled = true;
+        document.getElementById('3d-animation').appendChild(renderer.domElement);
+
+        // Basic materials
+        const tableTopMaterial = new THREE.MeshPhongMaterial({
+            color: 0x6366f1,
+            shininess: 100
+        });
+
+        const legMaterial = new THREE.MeshPhongMaterial({
+            color: 0x4f46e5,
+            shininess: 100
+        });
+
+        // Create table function
+        function createTable(x, y, z) {
+            const table = new THREE.Group();
+
+            // Table top
+            const topGeometry = new THREE.BoxGeometry(2, 0.2, 1);
+            const top = new THREE.Mesh(topGeometry, tableTopMaterial);
+            top.castShadow = true;
+            top.receiveShadow = true;
+
+            // Table legs
+            const legGeometry = new THREE.CylinderGeometry(0.05, 0.05, 1);
+            const legPositions = [
+                [-0.8, -0.5, -0.4],
+                [0.8, -0.5, -0.4],
+                [-0.8, -0.5, 0.4],
+                [0.8, -0.5, 0.4]
+            ];
+
+            legPositions.forEach(pos => {
+                const leg = new THREE.Mesh(legGeometry, legMaterial);
+                leg.position.set(...pos);
+                leg.castShadow = true;
+                table.add(leg);
+            });
+
+            table.add(top);
+            table.position.set(x, y, z);
+            return table;
+        }
+
+        // Create tables
+        const tables = [];
+        const rows = 2;
+        const cols = 2;
+        const spacing = 3;
+
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+                const x = (j - 0.5) * spacing;
+                const z = (i - 0.5) * spacing;
+                const table = createTable(x, 0, z);
+                tables.push(table);
+                scene.add(table);
+            }
+        }
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(5, 5, 5);
+        scene.add(directionalLight);
+
+        const pointLight = new THREE.PointLight(0x6366f1, 1);
+        pointLight.position.set(0, 5, 0);
+        scene.add(pointLight);
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+
+            tables.forEach((table, index) => {
+                // Simple floating animation
+                table.position.y = Math.sin(Date.now() * 0.001 + index) * 0.1;
+            });
+
+            // Rotate camera around scene
+            const time = Date.now() * 0.0005;
+            camera.position.x = Math.cos(time) * 10;
+            camera.position.z = Math.sin(time) * 10;
+            camera.lookAt(0, 0, 0);
+
+            renderer.render(scene, camera);
+        }
+
+        // Handle window resize
+        function onWindowResize() {
+            const container = document.getElementById('3d-animation');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        }
+
+        window.addEventListener('resize', onWindowResize);
+        onWindowResize();
+        animate();
     </script>
 </body>
 
