@@ -302,6 +302,12 @@
                                     class="form-checkbox text-violet-600 rounded h-5 w-5" checked>
                                 <span>Include Signature Section</span>
                             </label>
+                            <label
+                                class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                <input type="checkbox" id="includeTimeInOut"
+                                    class="form-checkbox text-violet-600 rounded h-5 w-5" checked>
+                                <span>Include Time In/Out</span>
+                            </label>
                         </div>
                         <div class="space-y-4">
                             <h3 class="font-semibold text-gray-700">Export Format</h3>
@@ -337,9 +343,9 @@
                     <span class="text-xl">←</span>
                     Previous
                 </button>
-                <button id="nextStep"
+                <button id="nextStep" onclick="finishAndRedirect()"
                     class="bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 hover:shadow-lg flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
-                    Next
+                    <span>Finish</span>
                     <span class="text-xl">→</span>
                 </button>
             </div>
@@ -356,13 +362,18 @@
         <div id="printContent" class="mb-8">
             <!-- Seating arrangement will be cloned here -->
         </div>
-
-        <!-- Add signature box template that will be used for each seat -->
+        m
+        <!-- Update the signature box template -->
         <template id="signatureBoxTemplate">
             <div class="signature-box mt-3 border border-gray-300 rounded p-2">
-                <div class="text-xs text-gray-500">Student Signature</div>
-                <div class="h-12 border-b-2 border-gray-400 mt-1"></div>
-                <div class="text-xs text-gray-500 mt-2">Time: _________</div>
+                <div class="text-xs text-gray-500 mb-1">Student Signature</div>
+                <div class="signature-line h-10 border-b-2 border-gray-400"></div>
+                <div class="time-in-out text-xs text-gray-500 mt-2">
+                    <div class="flex justify-between">
+                        <span>Time In: _________</span>
+                        <span>Time Out: _________</span>
+                    </div>
+                </div>
             </div>
         </template>
 

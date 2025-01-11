@@ -128,10 +128,12 @@ function generateSeating() {
                             </div>
                             <div class="signature-box mt-2 border-t border-gray-300 p-2">
                                 <div class="text-xs text-gray-500">Student Signature</div>
-                                <div class="h-10 border-b border-gray-400"></div>
-                                <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                    <span>Time In: _______</span>
-                                    <span>Time Out: _______</span>
+                                <div class="signature-line h-10 border-b-2 border-gray-400"></div>
+                                <div class="time-in-out text-xs text-gray-500 mt-2">
+                                    <div class="flex justify-between">
+                                        <span>Time In: _________</span>
+                                        <span>Time Out: _________</span>
+                                    </div>
                                 </div>
                             </div>
                         `;
@@ -149,10 +151,12 @@ function generateSeating() {
                             </div>
                             <div class="signature-box mt-2 border-t border-gray-300 p-2">
                                 <div class="text-xs text-gray-500">Student Signature</div>
-                                <div class="h-10 border-b border-gray-400"></div>
-                                <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                    <span>Time In: _______</span>
-                                    <span>Time Out: _______</span>
+                                <div class="signature-line h-10 border-b-2 border-gray-400"></div>
+                                <div class="time-in-out text-xs text-gray-500 mt-2">
+                                    <div class="flex justify-between">
+                                        <span>Time In: _________</span>
+                                        <span>Time Out: _________</span>
+                                    </div>
                                 </div>
                             </div>
                         `;
@@ -172,9 +176,15 @@ function generateSeating() {
                                 <div class="font-semibold">Roll No. ${rollNo}</div>
                                 <div class="text-sm text-gray-600">${stream1Name}</div>
                             </div>
-                            <div class="signature-box mt-2 border-t border-gray-300">
-                                <div class="text-xs text-gray-500 mt-1">Signature</div>
-                                <div class="border-b border-gray-400 h-6"></div>
+                            <div class="signature-box mt-2 border-t border-gray-300 p-2">
+                                <div class="text-xs text-gray-500">Student Signature</div>
+                                <div class="signature-line h-10 border-b-2 border-gray-400"></div>
+                                <div class="time-in-out text-xs text-gray-500 mt-2">
+                                    <div class="flex justify-between">
+                                        <span>Time In: _________</span>
+                                        <span>Time Out: _________</span>
+                                    </div>
+                                </div>
                             </div>
                         `;
                         stream1Counter++;
@@ -212,6 +222,9 @@ function generateSeating() {
         btn.innerHTML = originalText;
         btn.disabled = false;
     }
+
+    // After generating seats, initialize print options
+    initializePrintOptions();
 }
 
 function updatePrintTemplate() {
@@ -708,19 +721,16 @@ function updateNavigationButtons() {
     const prevBtn = document.getElementById('prevStep');
     const nextBtn = document.getElementById('nextStep');
 
-    // Previous button state
     prevBtn.disabled = currentStep === 1;
     prevBtn.classList.toggle('opacity-50', currentStep === 1);
 
-    // Next button state
-    nextBtn.innerHTML = currentStep === 3 ?
-        'Finish <span class="text-xl">→</span>' :
-        'Next <span class="text-xl">→</span>';
-
-    // Enable/disable next button based on step validation
-    const isStepValid = validateStep(currentStep);
-    nextBtn.disabled = currentStep === 3 && !isStepValid;
-    nextBtn.classList.toggle('opacity-50', currentStep === 3 && !isStepValid);
+    if (currentStep === 3) {
+        nextBtn.innerHTML = 'Finish <span class="text-xl">→</span>';
+        nextBtn.onclick = finishAndRedirect;
+    } else {
+        nextBtn.innerHTML = 'Next <span class="text-xl">→</span>';
+        nextBtn.onclick = () => navigateStep(1);
+    }
 }
 
 function validateStep(step) {
@@ -829,6 +839,12 @@ document.querySelector('.print-btn')?.addEventListener('click', printPreview);
 
 // Add new function for printing
 function printSeatingPlan() {
+    const includeHeader = document.getElementById('includeHeader').checked;
+    const includeInvigilator = document.getElementById('includeInvigilator').checked;
+    const includeTimeInOut = document.getElementById('includeTimeInOut').checked;
+    const logoElement = document.getElementById('logoPreview');
+    const hasLogo = logoElement && logoElement.src;
+
     const printWindow = window.open('', '_blank');
     printWindow.document.write(`
         <html>
@@ -845,158 +861,188 @@ function printSeatingPlan() {
                         margin: 0;
                         padding: 0;
                         font-family: 'Times New Roman', serif;
-                        line-height: 1.5;
                     }
-                    .print-container {
-                        max-width: 210mm;
-                        margin: 0 auto;
-                        padding: 20mm;
-                        background: white;
-                    }
-                    .header-section {
-                        text-align: center;
-                        margin-bottom: 30mm;
-                    }
-                    .logo-section {
-                        margin-bottom: 10mm;
-                    }
-                    .logo-section img {
-                        max-height: 80px;
-                        margin: 0 auto;
-                    }
-                    .institution-name {
-                        font-size: 24pt;
-                        font-weight: bold;
-                        margin: 10mm 0;
-                    }
-                    .document-title {
-                        font-size: 18pt;
-                        font-weight: bold;
-                        margin: 5mm 0;
-                        text-decoration: underline;
-                    }
-                    .config-table {
-                        width: 100%;
-                        border-collapse: collapse;
-                        margin: 10mm 0;
-                    }
-                    .config-table th,
-                    .config-table td {
-                        border: 1px solid black;
+                    .header-section { display: ${includeHeader ? 'block' : 'none'}; }
+                    .signature-section { display: ${includeInvigilator ? 'block' : 'none'}; }
+                    .time-in-out { display: ${includeTimeInOut ? 'block' : 'none'}; }
+                    .signature-box {
+                        border: 1px solid #ccc;
                         padding: 8px;
+                        margin-top: 8px;
                     }
-                    .config-table th {
-                        background-color: #f0f0f0;
-                    }
-                    .seating-grid {
-                        page-break-before: auto;
-                    }
-                    .bench {
-                        page-break-inside: avoid;
-                        margin-bottom: 10mm;
-                    }
-                    .signature-section {
-                        margin-top: 30mm;
-                        page-break-inside: avoid;
+                    .signature-line {
+                        border-bottom: 1px solid #000;
+                        height: 30px;
+                        margin: 5px 0;
                     }
                 }
             </style>
         </head>
-        <body>
-            <div class="print-container">
-                <div class="header-section">
-                    ${document.getElementById('logoPreview') ? `
-                        <div class="logo-section">
-                            <img src="${document.getElementById('logoPreview').src}" 
-                                alt="Institution Logo">
+        <body class="p-8">
+            ${includeHeader ? `
+                <div class="header-section text-center mb-8">
+                    ${hasLogo ? `
+                        <div class="mb-4">
+                            <img src="${logoElement.src}" alt="Institution Logo" style="max-height: 80px; margin: 0 auto;">
                         </div>
                     ` : ''}
-                    
-                    <div class="institution-name">
+                    <h1 class="text-2xl font-bold mb-2">
                         ${document.getElementById('institutionName').value || 'Institution Name'}
-                    </div>
-                    
-                    <div class="document-title">
-                        EXAMINATION SEATING ARRANGEMENT
-                    </div>
-                    
-                    <div class="date-time">
-                        Date: ${new Date().toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    })}
-                    </div>
+                    </h1>
+                    <div class="text-lg">Seating Arrangement</div>
                 </div>
-
-                <!-- Configuration Table -->
-                <table class="config-table">
-                    <tr>
-                        <th colspan="2" style="text-align: center; font-weight: bold;">Configuration Details</th>
-                    </tr>
-                    ${document.getElementById('seatingPlan').querySelector('table tbody').innerHTML}
-                </table>
-
-                <!-- Seating Arrangement -->
-                <div class="seating-grid">
-                    ${document.querySelector('.seating-grid').innerHTML}
-                </div>
-
-                <!-- Signature Section -->
-                <div class="signature-section">
-                    <table style="width: 100%; margin-top: 20mm;">
-                        <tr>
-                            <td style="width: 50%; text-align: center;">
-                                <div style="border-top: 1px solid black; display: inline-block; padding-top: 5px; min-width: 200px;">
-                                    Invigilator's Signature
-                                </div>
-                            </td>
-                            <td style="width: 50%; text-align: center;">
-                                <div style="border-top: 1px solid black; display: inline-block; padding-top: 5px; min-width: 200px;">
-                                    Supervisor's Signature
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+            ` : ''}
+            
+            <div id="seating-content">
+                ${document.getElementById('seatingPlan').innerHTML}
             </div>
+            
+            ${includeInvigilator ? `
+                <div class="signature-section mt-8 pt-4 border-t">
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <p class="font-semibold">Invigilator's Signature:</p>
+                            <div class="signature-line"></div>
+                            <p class="text-sm text-gray-500 mt-1">Date: _________________</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Supervisor's Signature:</p>
+                            <div class="signature-line"></div>
+                            <p class="text-sm text-gray-500 mt-1">Date: _________________</p>
+                        </div>
+                    </div>
+                </div>
+            ` : ''}
         </body>
         </html>
     `);
 
-    printWindow.document.write(`
-        <style>
-            @media print {
-                /* ...existing print styles... */
-                .signature-box {
-                    border: 1px solid #ccc;
-                    padding: 8px;
-                    margin-top: 8px;
-                }
-                .signature-line {
-                    border-bottom: 1px solid #000;
-                    height: 30px;
-                    margin: 5px 0;
-                }
-                .time-stamps {
-                    display: flex;
-                    justify-content: space-between;
-                    font-size: 0.75rem;
-                    color: #666;
-                    margin-top: 4px;
-                }
-            }
-        </style>
-    `);
-
+    // Add script to handle time in/out visibility after content loads
     printWindow.document.close();
-
-    // Wait for resources to load
     setTimeout(() => {
+        const timeInOutElements = printWindow.document.querySelectorAll('.time-in-out');
+        timeInOutElements.forEach(el => {
+            el.style.display = includeTimeInOut ? 'block' : 'none';
+        });
         printWindow.print();
         printWindow.close();
     }, 500);
 }
 
-// ...existing code...
+// Add this function to handle print options
+function initializePrintOptions() {
+    const checkboxes = {
+        includeHeader: document.getElementById('includeHeader'),
+        includeInvigilator: document.getElementById('includeInvigilator'),
+        includeTimeInOut: document.getElementById('includeTimeInOut')
+    };
+
+    const elements = {
+        printHeader: document.getElementById('printHeader'),
+        printFooter: document.getElementById('printFooter'),
+        timeInOut: document.querySelectorAll('.time-in-out'),
+        signatureBoxes: document.querySelectorAll('.signature-box')
+    };
+
+    // Set initial states and add listeners
+    Object.entries(checkboxes).forEach(([key, checkbox]) => {
+        if (!checkbox) return;
+
+        checkbox.addEventListener('change', function () {
+            switch (key) {
+                case 'includeHeader':
+                    if (elements.printHeader) {
+                        elements.printHeader.style.display = this.checked ? 'block' : 'none';
+                    }
+                    break;
+                case 'includeInvigilator':
+                    if (elements.printFooter) {
+                        elements.printFooter.style.display = this.checked ? 'block' : 'none';
+                    }
+                    break;
+                case 'includeTimeInOut':
+                    elements.timeInOut.forEach(el => {
+                        el.style.display = this.checked ? 'block' : 'none';
+                    });
+                    break;
+            }
+            updatePrintTemplate();
+        });
+
+        // Set initial state
+        checkbox.dispatchEvent(new Event('change'));
+    });
+}
+
+// Add new function to handle finish and redirect
+function finishAndRedirect() {
+    window.location.href = 'index.html';
+}
+
+// Add event listener for DOM content loaded
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialize print options when the page loads
+    initializePrintOptions();
+
+    // ...existing DOMContentLoaded code...
+});
+
+// Add event listeners when document loads
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialize print options
+    const includeHeader = document.getElementById('includeHeader');
+    const includeInvigilator = document.getElementById('includeInvigilator');
+    const includeTimeInOut = document.getElementById('includeTimeInOut');
+
+    if (includeHeader) {
+        includeHeader.addEventListener('change', function () {
+            const printHeader = document.getElementById('printHeader');
+            printHeader.style.display = this.checked ? 'block' : 'none';
+            updatePrintTemplate();
+        });
+    }
+
+    if (includeInvigilator) {
+        includeInvigilator.addEventListener('change', function () {
+            const printFooter = document.getElementById('printFooter');
+            printFooter.style.display = this.checked ? 'block' : 'none';
+            updatePrintTemplate();
+        });
+    }
+
+    if (includeTimeInOut) {
+        includeTimeInOut.addEventListener('change', function () {
+            const timeInOutElements = document.querySelectorAll('.time-in-out');
+            timeInOutElements.forEach(el => {
+                el.style.display = this.checked ? 'block' : 'none';
+            });
+            updatePrintTemplate();
+        });
+    }
+
+    // Step button click handlers
+    document.querySelectorAll('.step-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetStep = parseInt(btn.dataset.step);
+            const direction = targetStep - currentStep;
+            navigateStep(direction);
+        });
+    });
+
+    // Next button click handler
+    document.getElementById('nextStep').addEventListener('click', () => {
+        if (validateStep(currentStep)) {
+            navigateStep(1);
+        } else {
+            showNotification('Please complete all required fields before proceeding', 'error');
+        }
+    });
+
+    // Previous button click handler
+    document.getElementById('prevStep').addEventListener('click', () => {
+        navigateStep(-1);
+    });
+
+    // Initialize navigation buttons
+    updateNavigationButtons();
+});
